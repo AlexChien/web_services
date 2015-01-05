@@ -1,3 +1,4 @@
+rpc_host: localhost
 rpc_port: 5691
 rpc_user: user
 rpc_password: pass

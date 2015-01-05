@@ -7,9 +7,9 @@ module BitShares
 
     @@rpc_instance = nil
 
-    def self.init(port, username, password, options = nil)
+    def self.init(host, port, username, password, options = nil)
       options ||= { ignore_errors: false }
-      @@rpc_instance = BitShares::API::Rpc.new(port, username, password, options)
+      @@rpc_instance = BitShares::API::Rpc.new(host, port, username, password, options)
     end
 
     def self.rpc
@@ -46,8 +46,8 @@ module BitShares
 
       attr_accessor :ignore_errors, :echo_off
 
-      def initialize(port, username, password, options)
-        @uri = URI("http://localhost:#{port}/rpc")
+      def initialize(host, port, username, password, options)
+        @uri = URI("http://#{host}:#{port}/rpc")
         @req = Net::HTTP::Post.new(@uri)
         @req.content_type = 'application/json'
         @req.basic_auth username, password
@@ -91,10 +91,10 @@ module BitShares
 
 end
 
- 
+
 if $0 == __FILE__
   puts "BitShares API test.."
-  BitShares::API.init(5680, 'user', 'pass')
+  BitShares::API.init('localhost', 5680, 'user', 'pass')
   accounts = BitShares::API::Wallet.list_my_accounts()
   first_account = accounts[0]['name']
   puts BitShares::API::Wallet.account_transaction_history(first_account)
