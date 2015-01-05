@@ -27,6 +27,14 @@ gem 'spring',        group: :development
 gem 'quiet_assets', group: :development
 gem 'pry', group: :development
 
+group :development do
+  gem 'capistrano-rails'
+  gem 'capistrano-passenger'
+  # gem 'rvm1-capistrano3', require: false
+  gem 'capistrano-rvm'
+  gem 'capistrano-ssh-doctor'
+end
+
 gem 'bootstrap-sass'
 gem 'font-awesome-sass'
 gem 'devise'

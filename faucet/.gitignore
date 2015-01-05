@@ -7,3 +7,4 @@ config/secrets.yml
 config/bitshares.yml
 .ruby-version
 .ruby-gemset
+config/deploy
