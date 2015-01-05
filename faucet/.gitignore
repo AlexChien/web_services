@@ -2,9 +2,9 @@
 /log/*.log
 /tmp
 /.idea
-Gemfile.lock
 config/secrets.yml
 config/bitshares.yml
+.capistrano
 .ruby-version
 .ruby-gemset
 config/deploy
