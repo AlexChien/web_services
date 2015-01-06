@@ -20,7 +20,7 @@ set :passenger_restart_runner, :sequence
 set :passenger_restart_wait, 5
 set :passenger_restart_limit, 2
 
-set :linked_files, %w{config/database.yml}
+set :linked_files, %w{config/database.yml config/bitshares.yml config/secrets.yml}
 set :config_files, %w{database.yml bitshares.yml}
 
 set :linked_dirs, fetch(:linked_dirs, []).push('bin', 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system')
@@ -58,7 +58,7 @@ namespace :deploy do
       end
     end
   end
-  after "deploy:compile_assets", "deploy:build_missing_paperclip_styles"
+  # after "deploy:compile_assets", "deploy:build_missing_paperclip_styles"
 
 end
 
