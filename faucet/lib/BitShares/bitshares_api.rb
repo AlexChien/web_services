@@ -70,6 +70,7 @@ module BitShares
         Net::HTTP.start(@uri.hostname, @uri.port) do |http|
           @req.body = { method: method, params: params, id: 0 }.to_json
           response = http.request(@req)
+
           result = JSON.parse(response.body)
           if result['error']
             log "error: #{result['error']}"
@@ -81,8 +82,12 @@ module BitShares
           else
             log 'ok'
           end
+
         end
         return result['result']
+      rescue Exception => e
+        STDERR.puts "RPC Error: #{e}"
+        return nil
       end
 
     end
