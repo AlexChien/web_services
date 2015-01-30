@@ -6,15 +6,6 @@ class UsersController < ApplicationController
     @user = current_user
   end
 
-
-  def register_account
-    if current_user.bts_accounts.count >= Rails.application.config.bitshares.registrations_limit
-      redirect_to profile_path
-      return
-    end
-    @account = OpenStruct.new(name: '', key: '')
-  end
-
   def bitshares_account
     @reg_status = nil
     if session[:pending_registration]
@@ -30,7 +21,7 @@ class UsersController < ApplicationController
   private
 
   def do_register(name, key)
-    @reg_status = current_user.register_account(name, key)
+    @reg_status = current_user.register_account(name, key, cookies[:_ref_account])
     if @reg_status[:error]
       flash[:alert] = "We were unable to register account '#{name}' - #{@reg_status[:error]}"
       @account = OpenStruct.new(name: name, key: key)

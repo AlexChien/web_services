@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   respond_to :html, :json
 
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :assign_uid
 
   protected
   def configure_permitted_parameters
@@ -16,7 +17,7 @@ class ApplicationController < ActionController::Base
     if session[:pending_registration]
       bitshares_account_path
     else
-      register_account_path
+      profile_path(resource)
     end
   end
 
@@ -24,8 +25,39 @@ class ApplicationController < ActionController::Base
     if session[:pending_registration]
       bitshares_account_path
     else
-      register_account_path
+      profile_path(resource)
     end
+  end
+
+  def request_domain
+    host = URI.parse(request.original_url).host
+    host = $1 if host =~ /(\w+\.\w+)\z/
+    return host
+  end
+
+  def write_referral_cookie(r)
+    cookies[:_ref_account] = {
+        value: r,
+        expires: 1.month.from_now,
+        domain: request_domain()
+    }
+  end
+
+  private
+
+  def assign_uid
+    @uid = cookies[:_uid_]
+    if @uid
+      current_user.update_attribute(:uid, @uid) if current_user and current_user.uid != @uid
+      return
+    end
+    @uid = SecureRandom.urlsafe_base64(16)
+    cookies[:_uid_] = {
+        value: @uid,
+        expires: 10.years.from_now,
+        domain: request_domain()
+    }
+    current_user.update_attribute(:uid, @uid) if current_user and current_user.uid != @uid
   end
 
 end
