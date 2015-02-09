@@ -36,6 +36,15 @@ class WelcomeController < ApplicationController
   def test_widget
   end
 
+  def refscoreboard
+    if request.xhr?
+      @refs = BtsAccount.filter(params[:scope]).grouped_by_referrers
+      render '_refs', layout: false
+    else
+      @refs = BtsAccount.grouped_by_referrers
+    end
+  end
+
   def bitshares_login
     client_key = params[:client_key]
     server_key = params[:server_key]

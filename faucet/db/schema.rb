@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 6) do
     t.datetime "updated_at"
   end
 
+  add_index "bts_accounts", ["key"], name: "index_bts_accounts_on_key", unique: true, using: :btree
   add_index "bts_accounts", ["name"], name: "index_bts_accounts_on_name", unique: true, using: :btree
   add_index "bts_accounts", ["ogid"], name: "index_bts_accounts_on_ogid", unique: true, using: :btree
   add_index "bts_accounts", ["user_id"], name: "index_bts_accounts_on_user_id", using: :btree

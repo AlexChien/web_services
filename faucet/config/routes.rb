@@ -2,9 +2,11 @@ Rails.application.routes.draw do
 
   root 'welcome#index'
   get '/test_widget', to: 'welcome#test_widget'
+  get '/refscoreboard', to: 'welcome#refscoreboard'
   get '/bitshares_login', to: 'welcome#bitshares_login'
   post '/account_registration_step2', to: 'welcome#account_registration_step2', as: 'account_registration_step2'
 
+  #devise_for :users, ActiveAdmin::Devise.config.merge(controllers: {omniauth_callbacks: 'users/omniauth_callbacks'})
   devise_for :users, controllers: {omniauth_callbacks: 'users/omniauth_callbacks'}
 
   get 'user/profile', to: 'users#profile', as: 'profile'
@@ -19,9 +21,9 @@ Rails.application.routes.draw do
     get 'action'
   end
 
-  namespace :admin do
-    resources :referral_codes
-  end
+  # namespace :admin do
+  #   resources :referral_codes
+  # end
 
   namespace :api do
     namespace :v1 do
@@ -30,5 +32,7 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  ActiveAdmin.routes(self)
 
 end
