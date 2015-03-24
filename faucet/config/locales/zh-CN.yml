@@ -63,6 +63,8 @@ zh:
 
   users:
     bitshares_account:
+      sign_in_title:
+        使用社交账号登陆
       account_registered:
         "你的账号名 <strong>%{account_name}</strong> 已经注册成功。"
       share_bitshares_account:

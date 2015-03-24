@@ -65,6 +65,8 @@ en:
 
   users:
     bitshares_account:
+      sign_in_title:
+        Sign in to your faucet account
       account_registered:
         "Account <strong>%{account_name}</strong> was successfully registered."
       share_bitshares_account:

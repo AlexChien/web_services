@@ -16,13 +16,13 @@
   .col-md-6
     .panel.panel-default
       .panel-heading
-        %h3.panel-title Identities
+        %h3.panel-title 认证
       .panel-body
         %table.table.table-striped.col-md-4
           %thead
             %tr
-              %th Provider
-              %th Email
+              %th 社交账号
+              %th 电子邮件
           %tbody
             - @user.identities.each do |i|
               %tr
@@ -93,25 +93,25 @@
           %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"}
             = t('close')
 
-= link_to('All referral codes', profile_referral_codes_path)
-
-.page-header
-  .col-xs-6
-    %h1 Create new referral code
-  .col-xs-6
-    %h1 Redeem code
-.col-xs-6
-  = render "profile/referral_codes/form"
-.col-xs-6
-  = form_tag(redeem_profile_referral_codes_path, class: 'form-horizontal') do
-    .form-group
-      = label_tag :account, t('account_name'), class: 'col-sm-4 control-label'
-      .col-sm-6.input-group
-        = text_field_tag :account, nil, class: 'form-control'
-    .form-group
-      = label_tag :code, t('code'), class: 'col-sm-4 control-label'
-      .col-sm-6.input-group
-        = text_field_tag :code, nil, class: 'form-control'
-    .form-group
-      .col-sm-offset-4.col-sm-3.input-group
-        = submit_tag 'Redeem', class: 'btn btn-primary'
+/= link_to('All referral codes', profile_referral_codes_path)
+/
+/ .page-header
+/   .col-xs-6
+/     %h1 Create new referral code
+/   .col-xs-6
+/     %h1 Redeem code
+/ .col-xs-6
+/   = render "profile/referral_codes/form"
+/ .col-xs-6
+/   = form_tag(redeem_profile_referral_codes_path, class: 'form-horizontal') do
+/     .form-group
+/       = label_tag :account, t('account_name'), class: 'col-sm-4 control-label'
+/       .col-sm-6.input-group
+/         = text_field_tag :account, nil, class: 'form-control'
+/     .form-group
+/       = label_tag :code, t('code'), class: 'col-sm-4 control-label'
+/       .col-sm-6.input-group
+/         = text_field_tag :code, nil, class: 'form-control'
+/     .form-group
+/       .col-sm-offset-4.col-sm-3.input-group
+/         = submit_tag 'Redeem', class: 'btn btn-primary'
