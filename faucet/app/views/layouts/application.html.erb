@@ -74,7 +74,7 @@
             var script = document.createElement('script');
             script.type = 'text/javascript';
             script.async = true;
-            script.src = 'http://faucet.bitshares.org/widgets/2/w.js?ref='+encodeURIComponent(document.referrer);
+            script.src = 'http://<%= Rails.secrets.domain_name %>/widgets/2/w.js?ref='+encodeURIComponent(document.referrer);
             var entry = document.getElementsByTagName('script')[0];
             entry.parentNode.insertBefore(script, entry);
         }());

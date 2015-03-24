@@ -1,7 +1,11 @@
 require Rails.root.join('lib/BitShares/bitshares_api.rb').to_s
 
-BitShares::API.init(Rails.application.config.bitshares.pls_rpc_host,
-                    Rails.application.config.bitshares.pls_rpc_port,
-                    Rails.application.config.bitshares.pls_rpc_user,
-                    Rails.application.config.bitshares.pls_rpc_password,
-                    logger: Rails.logger)
+def init_bitshares_api(network)
+  BitShares::API.init(Rails.application.secrets["#{network}_rpc_host"],
+                      Rails.application.secrets["#{network}_rpc_port"],
+                      Rails.application.secrets["#{network}_rpc_user"],
+                      Rails.application.secrets["#{network}_rpc_password"],
+                      logger: Rails.logger)
+end
+
+init_bitshares_api 'pls'
