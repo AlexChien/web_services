@@ -1,4 +1,4 @@
-.logo.text-center= image_tag('logo-ico-blue.svg', size: '256x256')
+.logo.text-center= image_tag('logo.svg', size: '256x256')
 %br/
 %br/
 - if @account
@@ -31,7 +31,7 @@
         = number_to_currency(@faucet_balance, unit: '')
         = @asset.symbol
     = t('.donate', symbol: @asset_symbol)
-    %a{:href => "bts:#{faucet_account}/transfer"}
+    %a{:href => "pls:#{faucet_account}/transfer"}
     %b
       = faucet_account
     = " #{t('account')}."
