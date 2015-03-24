@@ -261,10 +261,11 @@ Devise.setup do |config|
   oauth = Rails.application.config.bitshares.oauth
   config.omniauth :facebook, oauth['facebook']['app_id'], oauth['facebook']['secret'], { scope: 'email' }
   config.omniauth :twitter, oauth['twitter']['app_id'], oauth['twitter']['secret']
-  config.omniauth :linkedin, oauth['linkedin']['app_id'], oauth['linkedin']['secret']
   config.omniauth :google_oauth2, oauth['google']['app_id'], oauth['google']['secret'], { scope: 'email' }
+  config.omniauth :linkedin, oauth['linkedin']['app_id'], oauth['linkedin']['secret']
   config.omniauth :github, oauth['github']['app_id'], oauth['github']['secret'], { scope: 'email' }
   config.omniauth :reddit, oauth['reddit']['app_id'], oauth['reddit']['secret'], { scope: 'identity' }
   config.omniauth :weibo, oauth['weibo']['app_id'], oauth['weibo']['secret'], :scope => 'email'
   config.omniauth :qq, oauth['qq']['app_id'], oauth['qq']['secret'], :scope => 'email'
+  config.omniauth :douban, oauth['douban']['app_id'], oauth['douban']['secret']
 end

@@ -4,7 +4,9 @@
 /.idea
 config/secrets.yml
 config/bitshares.yml
+.capistrano
 .ruby-version
 .ruby-gemset
+config/deploy
 .DS_Store
 dump.rdb

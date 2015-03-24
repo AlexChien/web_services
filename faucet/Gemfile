@@ -43,6 +43,14 @@ group :test do
   gem 'timecop'
 end
 
+group :development do
+  gem 'capistrano-rails'
+  gem 'capistrano-passenger'
+  # gem 'rvm1-capistrano3', require: false
+  gem 'capistrano-rvm'
+  gem 'capistrano-ssh-doctor'
+end
+
 gem 'bootstrap-sass'
 gem 'font-awesome-sass'
 gem 'devise'
@@ -62,6 +70,7 @@ gem 'omniauth-reddit', :git => 'git://github.com/jackdempsey/omniauth-reddit.git
 gem 'omniauth-weibo-oauth2'
 # gem 'weibo_2'
 gem 'omniauth-qq-oauth2', :git => 'git://github.com/dapic/omniauth-qq-oauth2.git'
+gem 'omniauth-douban-oauth2'
 gem 'mina'
 
 gem 'activeadmin', github: 'activeadmin'
