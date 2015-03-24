@@ -42,8 +42,16 @@ class Profile::ReferralCodesController < ApplicationController
   end
 
   def destroy
-    @referral.destroy
-    redirect_to admin_referral_codes_path, :notice => "Referral code deleted."
+    if @referral.funded?
+      ReferralCodesUpdater.refund(@referral)
+      @referral.destroy
+      redirect_to profile_referral_codes_path, :notice => "Referral code deleted and refunded"
+    else
+      @referral.destroy
+      redirect_to profile_referral_codes_path, :notice => "Referral code was deleted."
+    end
+  rescue ReferralCodesUpdater::FundedByNotSet
+    redirect_to profile_referral_codes_path, :alert => "Referral code was not deleted."
   end
 
   def send_mail
@@ -64,17 +72,17 @@ class Profile::ReferralCodesController < ApplicationController
       redirect_to root_path, alert: result[:error]
     else
       sign_in(:user, result)
-      redirect_to after_referral_login_profile_referral_codes_path
+      redirect_to profile_referral_code_path(params[:code_id])
     end
   end
 
-  def after_referral_login
-    redirect_to root_path unless current_user.from_referral?
-  end
-
   def redeem
-    account = BtsAccount.where(name: params[:account]).first
-    referral = ReferralCode.where(aasm_state: :sent)
+    account_name = params[:account]
+    redirect_to :back, alert: 'Please provide account name.' unless account_name.present?
+
+    # TODO: check if account name is registered on the blockchain (will do it myself later)
+
+    referral = ReferralCode.where(aasm_state: [:sent, :funded])
 
     if params[:code]
       referral = referral.where(code: params[:code]).first
@@ -82,14 +90,16 @@ class Profile::ReferralCodesController < ApplicationController
       referral = referral.where(sent_to: current_user.email).first
     end
 
-    if account && referral
-      referral.redeem(account.name, account.key)
-      account.user_id = current_user.id
-      account.save!
-
-      redirect_to profile_path, notice: 'Money has been transferred to your bitshares account'
+    if referral
+      res = ReferralCodesUpdater.redeem(referral, account_name)
+      if res[:error]
+        logger.error("!!! Error in ReferralCodesUpdater.redeem: #{res[:error]}")
+        redirect_to :back, alert: "We couldn't make a transfer at this time. This issue will be reported to website admins. Please try again later."
+      else
+        redirect_to profile_path, notice: "Your account was credited with #{referral.amount/referral.asset.precision} #{referral.asset.symbol}"
+      end
     else
-      redirect_to :back, alert: 'Referral code has not been redeemed. Please check your account name and ensure that code has been funded.'
+      redirect_to :back, alert: 'Referral code not found. Please make sure you entered correct code.'
     end
   end
 
@@ -97,7 +107,7 @@ class Profile::ReferralCodesController < ApplicationController
 
   def find_referral
     @referral = ReferralCode.find(params[:id])
-    raise ActiveRecord::RecordNotFound unless @referral.user == current_user
+    raise ActiveRecord::RecordNotFound unless @referral.user == current_user || @referral.user_is_receiver?(current_user) && !@referral.expired?
   end
 
   def find_referrals

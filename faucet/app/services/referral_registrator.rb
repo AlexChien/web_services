@@ -18,12 +18,13 @@ class ReferralRegistrator
     else
       return { error: referral_code.errors.full_messages.first }
     end
-
     if UserMailer.referral_code_email(user_name, email, amount, login_link).deliver
-      referral_code.set_to_sent
+      referral_code.set_to_sent!
+      referral_code
     else
       { error: "We couldn't send referral code at this time, please try again later or report this error to the faucet owner" }
     end
+
   end
 
   private
@@ -33,7 +34,7 @@ class ReferralRegistrator
   end
 
   def login_link
-    "#{Rails.application.routes.url_helpers.referral_login_profile_referral_codes_url}?login_hash=#{referral_code.login_hash}&email=#{email}"
+    "#{Rails.application.routes.url_helpers.referral_login_profile_referral_codes_url}?login_hash=#{referral_code.login_hash}&email=#{email}&code_id=#{referral_code.id}"
   end
 
   def amount

@@ -7,6 +7,7 @@ class ReferralCode < ActiveRecord::Base
     state :funded
     state :redeemed
     state :expired
+    state :closed
 
     event :fund do
       transitions from: :empty, to: :funded
@@ -14,12 +15,24 @@ class ReferralCode < ActiveRecord::Base
 
     event :set_to_sent do
       transitions from: :funded, to: :sent
+      after do
+        update_pending_codes_status(true)
+      end
+    end
+
+    event :close do
+      transitions from: [:funded, :sent, :expired], to: :closed
+      after do
+        update_pending_codes_status(false)
+      end
     end
 
   end
 
   EXPIRED_AT = ['1 hour', '2 hours', '6 hours', '12 hours', '24 hours', '2 days', '3 days', '7 days']
-  AVAILABLE_ASSETS = Asset.where(symbol: [:USD, :CNY, :EUR, :GOLD, :SILVER]).pluck(:symbol, :id)
+
+  BASE_ASSET_SYMBOL = Rails.env.production? ? :BTS : :XTS
+  AVAILABLE_ASSETS = Asset.where(symbol: [BASE_ASSET_SYMBOL, :USD, :CNY, :EUR, :GOLD, :SILVER]).pluck(:symbol, :id)
 
   belongs_to :asset
   belongs_to :user
@@ -28,10 +41,24 @@ class ReferralCode < ActiveRecord::Base
   validates :code, presence: true
   validates :amount, presence: true, numericality: true
   validates :asset_id, presence: true
-  validates :sent_to, uniqueness: true, on: :update
+  validates :sent_to, email: true, on: :update, allow_nil: true
+  validates :funded_by, presence: true, on: :update
+  validates :expires_at, presence: true
+
+  def user_is_receiver?(user)
+    sent_to == user.email
+  end
 
   def aasm_state
     self[:aasm_state] || :empty
+  end
+
+  def update_pending_codes_status(status)
+    user_sent_to = User.includes(:identities).where('identities.email = ? or users.email = ?', sent_to, sent_to).references(:identities).uniq.first
+    if user_sent_to
+      user_sent_to.assign_attributes(pending_codes: status)
+      user_sent_to.save if user_sent_to.changed?
+    end
   end
 
   def self.generate_code
@@ -40,16 +67,6 @@ class ReferralCode < ActiveRecord::Base
 
   def asset_amount
     self.amount / asset.precision
-  end
-
-  def redeem(account_name, public_key)
-    return unless self.sent? || self.funded?
-
-    account_name = add_contact_account(account_name, public_key)
-    #BitShares::API::Wallet.account_register(account_name, 'angel')
-    BitShares::API::Wallet.transfer(self.amount / asset.precision, asset.symbol, 'angel', account_name, "REF #{self.code}")
-    #BitShares::API::Wallet.transfer_to_address(self.amount / asset.precision, asset.symbol, 'angel', public_key, "CPN #{self.code}")
-    update_attribute(:redeemed_at, Time.now.to_s(:db))
   end
 
   def mutate_expires_at(expires_at)
@@ -73,22 +90,6 @@ class ReferralCode < ActiveRecord::Base
       when '7 days'
         DateTime.now + 7.days
     end
-  end
-
-  private
-
-  def add_contact_account(account_name, public_key)
-    begin
-      BitShares::API::Wallet.add_contact_account(account_name, public_key)
-    rescue BitShares::API::Rpc::Error => ex
-      if ex.to_s =~ /Account name is already registered/
-        account_name = "#{account_name}-cpn-#{self.id}"
-        BitShares::API::Wallet.add_contact_account(account_name, public_key)
-      else
-        raise ex
-      end
-    end
-    return account_name
   end
 
 end

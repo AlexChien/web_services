@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150301085021) do
+ActiveRecord::Schema.define(version: 20150320161339) do
 
   create_table "assets", force: true do |t|
     t.integer  "assetid"
@@ -80,15 +80,15 @@ ActiveRecord::Schema.define(version: 20150301085021) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.string   "aasm_state"
     t.string   "sent_to"
     t.string   "login_hash"
-    t.string   "aasm_state"
+    t.string   "funded_by"
   end
 
   add_index "referral_codes", ["asset_id"], name: "index_referral_codes_on_asset_id", using: :btree
   add_index "referral_codes", ["code"], name: "index_referral_codes_on_code", unique: true, using: :btree
   add_index "referral_codes", ["ref_code_id"], name: "index_referral_codes_on_ref_code_id", using: :btree
-  add_index "referral_codes", ["sent_to"], name: "index_referral_codes_on_sent_to", unique: true, using: :btree
 
   create_table "user_actions", force: true do |t|
     t.integer  "widget_id"
@@ -139,6 +139,7 @@ ActiveRecord::Schema.define(version: 20150301085021) do
     t.string   "unconfirmed_email"
     t.boolean  "newsletter_subscribed"
     t.text     "pending_intention"
+    t.boolean  "pending_codes"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
