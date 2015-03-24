@@ -4,9 +4,7 @@ class Identity < ActiveRecord::Base
   validates_uniqueness_of :uid, :scope => :provider
 
   def self.find_for_oauth(auth)
-    where(uid: auth.uid, provider: auth.provider).first_or_create do |i|
-      i.uid = auth.uid
-      i.provider = auth.provider
+    find_or_create_by(uid: auth.uid, provider: auth.provider) do |i|
       i.email = auth.info.email
     end
   end
