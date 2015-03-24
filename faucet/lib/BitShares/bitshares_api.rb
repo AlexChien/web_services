@@ -85,9 +85,6 @@ module BitShares
 
         end
         return result['result']
-      rescue Exception => e
-        STDERR.puts "RPC Error: #{e}"
-        return nil
       end
 
     end
