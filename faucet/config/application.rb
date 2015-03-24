@@ -33,7 +33,7 @@ module BitSharesFaucet
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
-    config.time_zone = 'Central Time (US & Canada)'
+    config.time_zone = 'Beijing'
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
 
@@ -52,7 +52,7 @@ module BitSharesFaucet
 
     config.cache_store = :memory_store, {size: 16.megabytes}
 
-    config.action_mailer.default_url_options = {host: Rails.application.config.bitshares.default_url, port: Rails.application.config.bitshares.default_port}
+    config.action_mailer.default_url_options = { host: Rails.application.secrets.domain_name }
 
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.smtp_settings = {
