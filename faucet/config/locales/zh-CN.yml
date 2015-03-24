@@ -40,17 +40,22 @@ zh:
     如何注册PLAY账号
 
   welcome:
+    account_registration_step2:
+      about_to_register:
+        即将注册账号
+      authenticate:
+        请使用以下社交账号登陆
+      note: |
+        <b>注意</b>: 这个步骤只是为了防止滥用赠送注册费的行为，你登陆的这些服务商都不会跟你的PLAY账号产生任何关联。
+      need_help:
+        需要帮助？阅读 %{link}
     index:
       about_to_register:
         你将要注册这个帐户名
       on_the_blockchain:
         在区块链上.
-      note: |
-        <b>注意</b>: 这个步骤只是为了防止滥用赠送注册费的行为，你登陆的这些服务商都不会跟你的PLAY账号产生任何关联。
       claim_account: |
         免费注册你的PLAY账号，请在下面表单中输入账户名和账户公钥(public key):
-      need_help:
-        需要帮助？阅读 %{link}
       faucet_balance:
         水龙头余额
       donate:

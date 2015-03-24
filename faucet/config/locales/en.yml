@@ -40,19 +40,22 @@ en:
     How to Register a BitShares Account
 
   welcome:
-    index:
+    account_registration_step2:
       about_to_register:
         Congratulations! You are about to register
-      on_the_blockchain:
-        on the blockchain.
+      authenticate:
+        Authenticate
       note: |
         <b>Note.</b> Some generous BitShares community members have donated a small amount of bitshares to this faucet so you can register your first account for free. <b>To prevent abuse of their generosity please authenticate with one of the following identity providers to proceed.</b>
         There is no link whatsoever between these services and your BitShares account.
         If you cannot see any options with which to authenticate below this box, please turn off any adblocker plugins you may be running.
-      claim_account: |
-        To claim your free BitShares account registration, please enter account name and your public key in the form below:
       need_help:
         Need help? Read %{link}
+    index:
+      on_the_blockchain:
+        on the blockchain.
+      claim_account: |
+        To claim your free BitShares account registration, please enter account name and your public key in the form below:
       faucet_balance:
         Faucet Balance
       donate:
