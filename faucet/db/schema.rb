@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150320161339) do
+ActiveRecord::Schema.define(version: 20150325100123) do
 
   create_table "assets", force: true do |t|
     t.integer  "assetid"
@@ -68,6 +68,21 @@ ActiveRecord::Schema.define(version: 20150320161339) do
 
   add_index "identities", ["provider", "uid"], name: "index_identities_on_provider_and_uid", unique: true, using: :btree
   add_index "identities", ["user_id"], name: "index_identities_on_user_id", using: :btree
+
+  create_table "pls_accounts", force: true do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.string   "key"
+    t.string   "referrer"
+    t.string   "ogid"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "pls_accounts", ["key"], name: "index_pls_accounts_on_key", unique: true, using: :btree
+  add_index "pls_accounts", ["name"], name: "index_pls_accounts_on_name", unique: true, using: :btree
+  add_index "pls_accounts", ["ogid"], name: "index_pls_accounts_on_ogid", unique: true, using: :btree
+  add_index "pls_accounts", ["user_id"], name: "index_pls_accounts_on_user_id", using: :btree
 
   create_table "referral_codes", force: true do |t|
     t.string   "code"

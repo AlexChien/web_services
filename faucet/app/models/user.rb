@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   has_many :identities, dependent: :destroy
   has_many :bts_accounts
   has_many :dvs_accounts
+  has_many :pls_accounts
   has_many :widgets
 
   TEMP_EMAIL_PREFIX = 'change@me'
