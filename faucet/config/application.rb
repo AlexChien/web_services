@@ -55,14 +55,26 @@ module BitSharesFaucet
     config.action_mailer.default_url_options = { host: Rails.application.secrets.domain_name }
 
     config.action_mailer.delivery_method = :smtp
+    smtp_setting = Rails.application.secrets.smtp
     config.action_mailer.smtp_settings = {
-        address: Rails.application.config.bitshares.mandrill['host'],
-        port: 587,
-        user_name: Rails.application.config.bitshares.mandrill['user_name'],
-        password: Rails.application.config.bitshares.mandrill['password'],
-        authentication: 'plain',
-        enable_starttls_auto: true
+      :address =>               smtp_setting["address"],
+      :port =>                  smtp_setting["port"],
+      :domain =>                smtp_setting["domain"],
+      :authentication =>        smtp_setting["authentication"],
+      :user_name =>             smtp_setting["provider_username"],
+      :password =>              smtp_setting["provider_password"],
+      :default_charset =>       smtp_setting["default_charset"],
+      :default_content_type =>  smtp_setting["default_content_type"]
     }
+
+    # config.action_mailer.smtp_settings = {
+    #     address: Rails.application.config.bitshares.mandrill['host'],
+    #     port: 587,
+    #     user_name: Rails.application.config.bitshares.mandrill['user_name'],
+    #     password: Rails.application.config.bitshares.mandrill['password'],
+    #     authentication: 'plain',
+    #     enable_starttls_auto: true
+    # }
 
     routes.default_url_options = config.action_mailer.default_url_options
   end
