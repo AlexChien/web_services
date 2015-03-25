@@ -2,7 +2,7 @@ module ApplicationHelper
 
   def bitshares_login_url
     begin
-      res = BitShares::API.rpc.request('wallet_login_start', [Rails.application.config.bitshares.bts_faucet_account])
+      res = BitShares::API.rpc.request('wallet_login_start', [Rails.application.secrets.pls_faucet_account])
     rescue
       return nil
     end
@@ -16,7 +16,7 @@ module ApplicationHelper
   end
 
   def faucet_account
-    Rails.application.config.bitshares.bts_faucet_account
+    Rails.application.secrets.pls_faucet_account
   end
 
 end
