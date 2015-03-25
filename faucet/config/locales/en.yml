@@ -99,6 +99,13 @@ en:
         Log in with another identity provider
       select_identity:
         Please select identity provider
+      identity:
+        Identity
+      social_accounts:
+        Social Account
+      email:
+        Email
+      
 
   referral_codes:
     successfully_created:

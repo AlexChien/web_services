@@ -6,15 +6,6 @@ class User < ActiveRecord::Base
   has_many :dvs_accounts
   has_many :widgets
 
-  #
-  # branch merge play remaining
-  #
-  # @@dvs_rpc_instance = BitShares::API::Rpc.new(Rails.application.config.bitshares.dvs_rpc_host,Rails.application.config.bitshares.dvs_rpc_port, Rails.application.config.bitshares.dvs_rpc_user, Rails.application.config.bitshares.dvs_rpc_password, logger: Rails.logger)
-  #
-  # def self.dvs_rpc_instance
-  #   @@dvs_rpc_instance
-  # end
-
   TEMP_EMAIL_PREFIX = 'change@me'
   TEMP_EMAIL_REGEX = /\Achange@me/
 

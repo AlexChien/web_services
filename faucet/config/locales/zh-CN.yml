@@ -100,6 +100,12 @@ zh:
         使用其他社交账号登陆
       select_identity:
         请选择社交账号
+      identity:
+        认证
+      social_accounts:
+        社交账号
+      email:
+        电子邮件
 
   referral_codes:
     successfully_created:
