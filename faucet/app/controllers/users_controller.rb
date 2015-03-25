@@ -28,13 +28,13 @@ class UsersController < ApplicationController
     user = User.find(params[:id])
 
     if user.email_verified? && user.confirmed_at
-      redirect_to root_path, notice: 'You have already confirmed your email.'
+      redirect_to root_path, notice: t('devise.confirmations.confirmed')
     end
 
     if request.patch? && params[:user] && params[:user][:email]
       if user.update_attribute(:email, params[:user][:email])
         sign_in(user, :bypass => true)
-        redirect_to profile_path, notice: "We've sent you a confirmation link."
+        redirect_to profile_path, notice: t('devise.confirmations.send_instructions')
       end
     end
   end

@@ -3,6 +3,7 @@ source "https://ruby.taobao.org"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.8'
+gem 'rails-i18n'
 # Use mysql as the database for Active Record
 gem 'mysql2'
 # Use SCSS for stylesheets
@@ -82,3 +83,5 @@ gem 'exception_notification', github: 'smartinez87/exception_notification'
 gem 'devise-i18n'
 gem 'aasm'
 gem 'clockwork'
+
+gem 'country_select', github: 'stefanpenner/country_select'
