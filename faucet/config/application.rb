@@ -64,7 +64,9 @@ module BitSharesFaucet
       :user_name =>             smtp_setting["provider_username"],
       :password =>              smtp_setting["provider_password"],
       :default_charset =>       smtp_setting["default_charset"],
-      :default_content_type =>  smtp_setting["default_content_type"]
+      :default_content_type =>  smtp_setting["default_content_type"],
+      # :enable_starttls_auto =>  true
+      :ssl =>                   true
     }
 
     # config.action_mailer.smtp_settings = {

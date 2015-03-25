@@ -1,3 +1,3 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "no-reply@bitshares.org"
+  default from: "noreply@dacplay.org"
 end
