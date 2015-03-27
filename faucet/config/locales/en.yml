@@ -41,6 +41,8 @@ en:
 
   welcome:
     account_registration_step2:
+      title:
+        Please enter correct account name and your public key in the form below
       about_to_register:
         Congratulations! You are about to register
       authenticate:

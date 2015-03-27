@@ -41,6 +41,8 @@ zh:
 
   welcome:
     account_registration_step2:
+      title:
+        请在下方表单中输入正确的账号名称及你的公钥(public key)
       about_to_register:
         即将注册账号
       authenticate:

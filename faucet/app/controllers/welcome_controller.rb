@@ -17,7 +17,7 @@ class WelcomeController < ApplicationController
   end
 
   def account_registration_step2
-    @account = BtsAccount.new(bts_account_params)
+    @account = PlsAccount.new(bts_account_params)
     logger.debug "BtsAccount: \n #{@account}; #{@account.valid?}; #{@account.errors}"
     set_pending_registration(@account.name, @account.key, nil)
 

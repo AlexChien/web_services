@@ -1,11 +1,11 @@
-class PlsAccount < BtsAccount
+class PlsAccount < ActiveRecord::Base
   DATE_SCOPES = ['Today', 'Yesterday', 'This week', 'Last week', 'This month', 'Last month', 'All']
 
   belongs_to :user
 
-  validates :name, presence: true, format: {
+  validates :name, presence: true, length: { minimum: 6 }, format: {
       with: /\A[a-z]+(?:[a-z0-9\-])*[a-z0-9]\z/,
-      message: 'Only lowercase alphanumeric characters and dashes. Must start with a letter and cannot end with a dash.'
+      message: '只支持6位以上由小写字母、数字和横杠构成的名字。必须由小写字母开头，不能以横杠结尾。'
   }
   validates :key, presence: true
 
