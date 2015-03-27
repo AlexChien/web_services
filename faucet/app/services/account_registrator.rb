@@ -51,11 +51,7 @@ class AccountRegistrator
   private
 
   def register_pls(account_name, account_key, owner_key)
-    BitShares::API::Wallet.add_contact_account(account_name, account_key)
-    account = BitShares::API::Wallet.get_account(account_name)
-    account['owner_key'] = owner_key if owner_key
-    account['meta_data'] = {'type' => 'public_account', 'data' => ''}
-    BitShares::API.rpc.request('request_register_account', [account])
+    BitShares::API.rpc.request('request_register_account_with_key', [account_name, owner_key])
   end
 
   def register_bts(account_name, account_key, owner_key)
