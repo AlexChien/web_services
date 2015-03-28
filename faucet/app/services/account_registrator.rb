@@ -31,9 +31,10 @@ class AccountRegistrator
         @user.dvs_accounts.create(name: account_name, key: account_key, referrer: referrer)
       end
 
-      unless account_created.errors.empty?
-        @result[:error] = account_created.errors.full_messages
-        @logger.error("!!! Error. Cannot register account #{account_name} - #{account_created.errors.full_messages}")
+      if account_created.nil? || !account_created.persisted? || !account_created.errors.empty?
+        error_msg = account_created.try(:errors).try(:full_messages)
+        @result[:error] = error_msg
+        @logger.error("!!! Error. Cannot register account #{account_name} - #{error_msg}")
       end
       # account_key.start_with?('DVS') ? register_dvs(account_name, account_key, owner_key) : register_bts(account_name, account_key, owner_key)
       # @user.bts_accounts.create(name: account_name, key: account_key, referrer: referrer)
@@ -55,7 +56,7 @@ class AccountRegistrator
 
   def register_pls(account_name, account_key, owner_key)
     return false if account_name.length < 7
-    BitShares::API.rpc.request('request_register_account_with_key', [account_name, owner_key])
+    BitShares::API.rpc.request('request_register_account_with_key', [account_name, account_key])
   end
 
   def register_bts(account_name, account_key, owner_key)
