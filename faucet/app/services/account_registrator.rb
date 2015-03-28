@@ -51,6 +51,7 @@ class AccountRegistrator
   private
 
   def register_pls(account_name, account_key, owner_key)
+    return false if account_name.length < 7
     BitShares::API.rpc.request('request_register_account_with_key', [account_name, owner_key])
   end
 

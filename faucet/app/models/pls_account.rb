@@ -3,9 +3,9 @@ class PlsAccount < ActiveRecord::Base
 
   belongs_to :user
 
-  validates :name, presence: true, length: { minimum: 6 }, format: {
+  validates :name, presence: true, length: { minimum: 7 }, format: {
       with: /\A[a-z]+(?:[a-z0-9\-])*[a-z0-9]\z/,
-      message: '只支持6位以上由小写字母、数字和横杠构成的名字。必须由小写字母开头，不能以横杠结尾。'
+      message: '只支持7位及7位长度以上，由小写字母、数字和横杠构成的名字。必须由小写字母开头，不能以横杠结尾。'
   }
   validates :key, presence: true
 
