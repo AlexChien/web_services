@@ -25,6 +25,9 @@ class ApplicationController < ActionController::Base
   end
 
   def ensure_email_confirmation
+    # skip ensure email confirmation for now
+    return true
+
     return if action_name == 'finish_signup' || controller_name.in?(['confirmations', 'sessions']) || root_path == request.path
 
     if current_user && !current_user.email_verified?

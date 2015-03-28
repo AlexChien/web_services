@@ -65,6 +65,9 @@ class User < ActiveRecord::Base
   end
 
   def subscribe(subscription_status)
+    # skip subscribe for now
+    return
+
     return unless self.email
 
     gb = Gibbon::API.new
