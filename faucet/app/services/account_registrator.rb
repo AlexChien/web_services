@@ -19,8 +19,8 @@ class AccountRegistrator
     end
 
     begin
-      case account_key.upcase.first(3)
-      when 'PLS'
+      account_created = case account_key.upcase.first(3)
+        when 'PLS'
         register_pls(account_name, account_key, owner_key)
         @user.pls_accounts.create(name: account_name, key: account_key, referrer: referrer)
       when 'BTS'
@@ -29,8 +29,11 @@ class AccountRegistrator
       when 'DVS'
         register_dvs(account_name, account_key, owner_key)
         @user.dvs_accounts.create(name: account_name, key: account_key, referrer: referrer)
+      end
 
-
+      unless account_created.errors.empty?
+        @result[:error] = account_created.errors.full_messages
+        @logger.error("!!! Error. Cannot register account #{account_name} - #{account_created.errors.full_messages}")
       end
       # account_key.start_with?('DVS') ? register_dvs(account_name, account_key, owner_key) : register_bts(account_name, account_key, owner_key)
       # @user.bts_accounts.create(name: account_name, key: account_key, referrer: referrer)
