@@ -50,6 +50,7 @@ group :development do
   # gem 'rvm1-capistrano3', require: false
   gem 'capistrano-rvm'
   gem 'capistrano-ssh-doctor'
+  gem 'capistrano-upload', require: false
 end
 
 gem 'bootstrap-sass'
