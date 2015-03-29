@@ -58,6 +58,8 @@ zh:
         在区块链上.
       claim_account: |
         免费注册你的PLAY账号，请在下面表单中输入账户名和账户公钥(public key):
+      name_length_notice:
+        水龙头只支持长度为7位及以上的账户名免费注册
       faucet_balance:
         水龙头余额
       donate:

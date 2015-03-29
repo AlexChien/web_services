@@ -5,6 +5,8 @@
   .header
     %h2.logo.text-center
       = t('.claim_account')
+    .text-center
+      .label.label-warning= t('.name_length_notice')
     %br/
   = render partial: 'register_account_form'
   %br/

@@ -58,6 +58,8 @@ en:
         on the blockchain.
       claim_account: |
         To claim your free BitShares account registration, please enter account name and your public key in the form below:
+      name_length_notice:
+        PLAY Faucet only supports account names with length longer than 7 characters
       faucet_balance:
         Faucet Balance
       donate:
