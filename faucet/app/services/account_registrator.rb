@@ -9,7 +9,7 @@ class AccountRegistrator
     @result = {account_name: account_name}
 
     if @account
-      @result[:error] = t('users.bitshares_account.already_registered', account_name: account_name:)
+      @result[:error] = t('users.bitshares_account.already_registered', account_name: account_name)
       return @result
     end
 

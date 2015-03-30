@@ -52,7 +52,7 @@
         - if msg.is_a?(String)
           %div{:class => "flash alert alert-#{name.to_s == 'notice' ? 'success' : 'danger'}"}
             %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", :type => "button"} ×
-            = content_tag :div, msg, :id => "flash_#{name}"
+            = content_tag :div, msg.html_safe, :id => "flash_#{name}"
       = yield
     %footer.footer
       .container
