@@ -9,12 +9,12 @@ class AccountRegistrator
     @result = {account_name: account_name}
 
     if @account
-      @result[:error] = "Account '#{account_name}' is already registered"
+      @result[:error] = t('users.bitshares_account.already_registered', account_name: account_name:)
       return @result
     end
 
     if @user.pls_accounts.count >= Rails.application.secrets.registrations_limit
-      @result[:error] = 'Account cannot be registered. You are running out of your limit of free account registrations.'
+      @result[:error] = t('users.bitshares_account.exceed_limit')
       return @result
     end
 

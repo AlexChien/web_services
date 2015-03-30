@@ -86,6 +86,12 @@ zh:
         分享到Twitter
       try_different_account:
         你可以尝试不同的账户名或公钥
+      unable_to_register:
+        "无法为账户 <strong>%{account_name}</strong> 注册：%{reason}"
+      already_registered:
+        "账户 %{account_name} 已经被注册"
+      exceed_limit:
+        "超过每位用户可以免费注册的账户数上限"
         
     subscribe:
       subscribed:

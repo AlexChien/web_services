@@ -86,6 +86,13 @@ en:
         Share on Twitter
       try_different_account:
         You can try a different account name or key
+      unable_to_register:
+        "We were unable to register account <strong>%{account_name}</strong> : %{reason}"
+      already_registered:
+        "Account %{account_name} is already registered"
+      exceed_limit:
+        "You are running out of your limit of free account registrations."
+      
     subscribe:
       subscribed:
         We have subscribed you to BitShares newsletter, please click %{link} to unsubscribe.
