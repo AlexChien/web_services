@@ -36,7 +36,7 @@
               %ul.dropdown-menu{:role => "menu"}
                 %li= link_to('English', '?locale=en')
                 %li= link_to('中文', '?locale=zh-CN')
-            - if current_user && current_user.email_verified?
+            - if current_user #&& current_user.email_verified?
               %li.dropdown
                 %a.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", :href => "#", :role => "button"}
                   %span.glyphicon.glyphicon-user
