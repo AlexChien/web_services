@@ -33,7 +33,7 @@ class AccountRegistrator
 
       if account_created.nil? || !account_created.persisted? || !account_created.errors.empty?
         error_msg = account_created.try(:errors).try(:full_messages)
-        @result[:error] = error_msg
+        @result[:error] = error_msg.size > 300 ? error_msg.first(300) : error_msg
         @logger.error("!!! Error. Cannot register account #{account_name} - #{error_msg}")
       end
       # account_key.start_with?('DVS') ? register_dvs(account_name, account_key, owner_key) : register_bts(account_name, account_key, owner_key)
