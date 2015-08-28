@@ -18,7 +18,13 @@ class ApplicationController < ActionController::Base
   def get_locale
     locale = (request.env and request.env['HTTP_ACCEPT_LANGUAGE'] ? request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^[^,]+/).first : 'en')
 
-    locale = 'zh-CN' if locale == 'zh-cn'
+    locale = case locale.downcase
+    when 'zh-cn','cn', 'zh-tw', 'zh-hk'
+      'zh-CN'
+    else
+      'en'
+    end
+
     locale
   end
 
